@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-eks-stage-addons
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+  project: test-stage
+  source:
+    repoURL: 'git@github.com:linear-health/eks-addons.git'
+    path: .
+    targetRevision: stage
+    directory:
+      recurse: true
+      jsonnet: {}
+  destination:
+    name: test-eks-stage
